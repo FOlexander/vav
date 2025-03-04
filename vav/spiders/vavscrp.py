@@ -44,6 +44,17 @@ class VavscrpSpider(scrapy.Spider):
         inactive_vacancies = self.existing_vacancies - current_vacancies
         if inactive_vacancies:
             print(f"Видалені вакансії: {inactive_vacancies}")
+            # Обновляем связанные записи, устанавливая selected_vacancy_id в NULL
+            self.cursor.executemany(
+                """
+                UPDATE vac_form_jobapplication
+                SET selected_vacancy_id = NULL
+                WHERE selected_vacancy_id = %s
+                """,
+                [(vac_id,) for vac_id in inactive_vacancies]
+            )
+            self.conn.commit()
+            # Удаляем неактивные вакансии
             self.cursor.executemany(
                 "DELETE FROM vac_form_vacancy WHERE vac_id = %s",
                 [(vac_id,) for vac_id in inactive_vacancies]
