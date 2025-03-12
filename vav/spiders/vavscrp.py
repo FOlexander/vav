@@ -56,8 +56,8 @@ class VavscrpSpider(scrapy.Spider):
             self.conn.commit()
             # Удаляем неактивные вакансии
             self.cursor.executemany(
-                "DELETE FROM vac_form_vacancy WHERE vac_id = %s",
-                [(vac_id,) for vac_id in inactive_vacancies]
+                "DELETE FROM vac_form_vacancy WHERE site = %s AND vac_id = %s", 
+                [('vavsynergy.com', vac_id) for vac_id in inactive_vacancies]
             )
             self.conn.commit()
 
@@ -79,6 +79,7 @@ class VavscrpSpider(scrapy.Spider):
         uniform = response.css('.uniform-ua .content::text').get()
         tools = response.css('.tool-ua .content::text').get()
         transfer = response.css('.transfer-ua .content::text').get()
+        site = 'vavsynergy.com'
         
         age = response.css('.ageua .content::text').get()
         try:
@@ -99,8 +100,8 @@ class VavscrpSpider(scrapy.Spider):
             INSERT INTO vac_form_vacancy (
                 vac_id, position, job_category, country, salary, date_posted, sex, 
                 vaccity, docs_need, schedule, apartment, uniform, tools, transfer, age,
-                min_age, max_age, experience, language, duties, payment, active
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                min_age, max_age, experience, language, duties, payment, active, site
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (vac_id) DO UPDATE SET 
                 position = EXCLUDED.position,
                 job_category = EXCLUDED.job_category,
@@ -122,11 +123,12 @@ class VavscrpSpider(scrapy.Spider):
                 language = EXCLUDED.language,
                 duties = EXCLUDED.duties,
                 payment = EXCLUDED.payment,
-                active = EXCLUDED.active
+                active = EXCLUDED.active,
+                site = EXCLUDED.site
             """,
             (vac_id, position, job_category, country, salary, date_posted, sex, vaccity,
              docs_need, schedule, apartment, uniform, tools, transfer, age, min_age, max_age, experience,
-             language, duties, payment, active)
+             language, duties, payment, active, site)
         )
         self.conn.commit()
 
