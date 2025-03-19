@@ -26,7 +26,7 @@ class VavscrpSpider(scrapy.Spider):
 
     def get_existing_vacancies(self):
         """Получает список всех существующих vac_id в базе."""
-        self.cursor.execute("SELECT vac_id FROM vac_form_vacancy")
+        self.cursor.execute("SELECT vac_id FROM vac_form_vacancy WHERE site = %s", ('vavsynergy.com',))
         return {row[0] for row in self.cursor.fetchall()}
 
     def parse(self, response):
