@@ -10,7 +10,7 @@ load_dotenv()
 class VavscrpSpider(scrapy.Spider):
     name = "vavscrp"
     allowed_domains = ["vavsynergy.com"]
-    start_urls = ["https://vavsynergy.com/job/?jobs_ppp=-1m"]
+    start_urls = ["https://vavsynergy.com/ru/job/?jobs_ppp=-1m"]
 
     def __init__(self):
         # Подключение к базе данных
