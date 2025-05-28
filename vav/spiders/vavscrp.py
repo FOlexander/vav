@@ -34,7 +34,7 @@ class VavscrpSpider(scrapy.Spider):
         current_vacancies = set()
 
         for link in links:
-            vac_id = link.split('ua')[-1].replace('/', '').replace('-', '')
+            vac_id = link.split('ru')[-1].replace('/', '').replace('-', '')
             current_vacancies.add(vac_id)
 
             if vac_id not in self.existing_vacancies:
