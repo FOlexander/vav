@@ -81,7 +81,7 @@ class VavscrpSpider(scrapy.Spider):
         transfer = response.css('.transfer-ua .content::text').get()
         site = 'vavsynergy.com'
         
-        age = response.css('.ageua .content::text').get()
+        age = response.css('.ageru .content::text').get()
         try:
             min_age, max_age = re.findall(r'\d+', age)
         except:
