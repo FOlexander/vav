@@ -72,13 +72,13 @@ class VavscrpSpider(scrapy.Spider):
         salary = f"{salary_numbers} {salary_currency} {salary_time}"
         date_posted = response.css('.list li')[0].css('.details .value::text').get().strip()
         sex = response.css('.list li')[-2].css('.details .value::text').get().strip()
-        vaccity = response.css('.vaccityua .content::text').get()
-        docs_need = response.css('.docs-need-ua .content::text').get()
-        schedule = response.css('.schedule-ua .content::text').get()
-        apartment = response.css('.apartmentua .content::text').get()
-        uniform = response.css('.uniform-ua .content::text').get()
-        tools = response.css('.tool-ua .content::text').get()
-        transfer = response.css('.transfer-ua .content::text').get()
+        vaccity = response.css('.vaccityru .content::text').get()
+        docs_need = response.css('.docs-need-ru .content::text').get()
+        schedule = response.css('.schedule-ru .content::text').get()
+        apartment = response.css('.apartmentru .content::text').get()
+        uniform = response.css('.uniform-ru .content::text').get()
+        tools = response.css('.tool-ru .content::text').get()
+        transfer = response.css('.transfer-ru .content::text').get()
         site = 'vavsynergy.com'
         
         age = response.css('.ageru .content::text').get()
@@ -88,10 +88,10 @@ class VavscrpSpider(scrapy.Spider):
             min_age = 18
             max_age = re.findall(r'\d+', age)[0]
 
-        experience = response.css('.expirience-ua .content::text').get()
-        language = response.css('.language-ua .content::text').get()
-        duties = response.css('.duties-ua .content p::text').get()
-        payment = response.css('.payment-ua .content::text').get()
+        experience = response.css('.expirience-ru .content::text').get()
+        language = response.css('.language-ru .content::text').get()
+        duties = response.css('.duties-ru .content p::text').get()
+        payment = response.css('.payment-ru .content::text').get()
         active = True
 
         # Сохранение данных в базу
