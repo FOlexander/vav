@@ -73,7 +73,7 @@ class VavscrpSpider(scrapy.Spider):
         date_posted = response.css('.list li')[0].css('.details .value::text').get().strip()
         sex = response.css('.list li')[-2].css('.details .value::text').get().strip()
         vaccity = response.css('.vaccityru .content::text').get()
-        docs_need = response.css('.docs-need-ru .content::text').get()
+        docs_need = response.css('.docs-need-ru .content div::text').get()
         schedule = response.css('.schedule-ru .content::text').get()
         apartment = response.css('.apartmentru .content::text').get()
         uniform = response.css('.uniform-ru .content::text').get()
